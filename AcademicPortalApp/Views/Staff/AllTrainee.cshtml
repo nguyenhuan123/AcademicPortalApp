@@ -1,0 +1,44 @@
+﻿@model IEnumerable<AcademicPortalApp.Models.TraineeInStaffViewModel>
+@{
+    ViewBag.Title = "AllTrainee";
+}
+
+<h2>AllTrainee</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Trainee Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Date of Birth</th>
+            <th scope="col">TOEIC Score</th>
+            <th scope="col">Experience Details</th>
+            <th scope="col">Department</th>
+            <th scope="col">Location</th>
+            <th scope="col">Progamming Language</th>
+            <th scope="col">Action </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var trainee in Model)
+        {
+            <tr>
+                <th>@trainee.Email</th>
+                <th>@trainee.TraineeName</th>
+                <td>@trainee.Age</td>
+                <td>@trainee.DateOfBirth </td>
+                <td>@trainee.TOEICScore</td>
+                <td>@trainee.ExperienceDetails</td>
+                <td>@trainee.Department</td>
+                <td>@trainee.Location</td>
+                <td>@trainee.ProgrammingLanguage.Name</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditTrainee", new { Id = trainee.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "DeleteTrainee", new { Id = trainee.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+    @Html.ActionLink("Create", "CreateTrainee", null, new { @class = "btn btn-primary" })
+</table>

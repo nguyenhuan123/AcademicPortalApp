@@ -200,6 +200,8 @@ namespace AcademicPortalApp.Controllers
             _context.SaveChanges();
             return RedirectToAction("AllCategory");
         }
+
+
         // Staff /get all Trainer
         public ActionResult AllTrainer()
         {
@@ -220,6 +222,9 @@ namespace AcademicPortalApp.Controllers
 
             return View(trainerInfo);
         }
+
+
+        //Get : Staff/Edit Trainer
         [HttpGet]
         [Authorize(Roles = "Staff")]
         public ActionResult EditTrainer(string Id)
@@ -240,7 +245,7 @@ namespace AcademicPortalApp.Controllers
             };
             return View(model);
         }
-        //POST: /Admin/Edit Trainer
+        //POST: /Staff/Edit Trainer
         [HttpPost]
         [Authorize(Roles = "Staff")]
         [AllowAnonymous]
@@ -254,6 +259,131 @@ namespace AcademicPortalApp.Controllers
             findTrainer.WorkingPlace = model.WorkingPlace;
             _context.SaveChanges();
             return RedirectToAction("AllTrainer");
+        }
+        // Get all trainee
+        [Authorize (Roles ="Staff")]
+        public ActionResult AllTrainee()
+        {
+            var allTrainee = _context.Users.OfType<Trainee>().Include(t => t.ProgrammingLanguage).ToList();
+
+            List<TraineeInStaffViewModel> traineeInfo = new List<TraineeInStaffViewModel>();
+
+            foreach (var trainee in allTrainee)
+            {
+
+                traineeInfo.Add(new TraineeInStaffViewModel()
+                {
+                    TraineeName = trainee.TraineeName,
+                    Email = trainee.UserName,
+                    Id = trainee.Id,
+                    Age = trainee.Age,
+                    ProgrammingLanguage = trainee.ProgrammingLanguage,
+                    ProgrammingLanguageId = trainee.ProgrammingLanguageId,
+                    TOEICScore = trainee.TOEICScore,
+                    ExperienceDetails = trainee.ExperienceDetails,
+                    DateOfBirth = trainee.DateOfBirth,
+                    Department = trainee.Department,
+                    Location = trainee.Location
+                });
+            }
+            return View(traineeInfo);
+        }
+        //Get Staff /Create : Trainee
+        [HttpGet]
+        [Authorize(Roles = "Staff")]
+        public ActionResult CreateTrainee()
+        {
+            TraineeInStaffViewModel model = new TraineeInStaffViewModel()
+            {
+                ProgrammingLanguages = _context.ProgrammingLanguages.ToList()
+            };
+            return View(model);
+        }
+
+        
+        // POST: /Staff/Create new trainee account
+        [HttpPost]
+        [Authorize(Roles = "Staff")]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateTrainee(TraineeInStaffViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new Trainee { UserName = model.Email, Email = model.Email, DateOfBirth = model.DateOfBirth, ProgrammingLanguageId = model.ProgrammingLanguageId, TraineeName = model.TraineeName, Age = model.Age, Department = model.Department, Location = model.Location, ExperienceDetails = model.ExperienceDetails };
+
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    var userRole = UserManager.AddToRole(user.Id, "Trainee");
+                    return RedirectToAction("AllTrainee");
+                }
+                AddErrors(result);
+            }
+
+            return View(model);
+        }
+
+        // GET : Staff /Edit Trainee
+        [HttpGet]
+        [Authorize(Roles = "Staff")]
+        public ActionResult EditTrainee(string Id)
+        {
+            var findTrainee = _context.Users.OfType<Trainee>().Include(t => t.ProgrammingLanguage).SingleOrDefault(t => t.Id == Id);
+            if (findTrainee == null)
+            {
+                return HttpNotFound();
+            }
+            TraineeInStaffViewModel model = new TraineeInStaffViewModel()
+            {
+                Id = findTrainee.Id,
+                TraineeName = findTrainee.TraineeName,
+                Email = findTrainee.Email,
+                Age = findTrainee.Age,
+                DateOfBirth = findTrainee.DateOfBirth,
+                TOEICScore = findTrainee.TOEICScore,
+                ExperienceDetails = findTrainee.ExperienceDetails,
+                Department = findTrainee.Department,
+                Location = findTrainee.Location,
+                ProgrammingLanguages = _context.ProgrammingLanguages.ToList()
+            };
+            return View(model);
+        }
+
+        //Post : Staff / Edit Trainee
+        [HttpPost]
+        [Authorize(Roles = "Staff")]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditTrainee(TraineeInStaffViewModel model)
+        {
+            var findTrainee = _context.Users.OfType<Trainee>().SingleOrDefault(t => t.Id == model.Id);
+            findTrainee.TraineeName = model.TraineeName;
+            findTrainee.Email = model.Email;
+            findTrainee.Age = model.Age;
+            findTrainee.DateOfBirth = model.DateOfBirth;
+            findTrainee.TOEICScore = model.TOEICScore;
+            findTrainee.ExperienceDetails = model.ExperienceDetails;
+            findTrainee.Department = model.Department;
+            findTrainee.Location = model.Location;
+            findTrainee.ProgrammingLanguageId = model.ProgrammingLanguageId;
+            _context.SaveChanges();
+            return RedirectToAction("AllTrainee");
+        }
+
+
+        //Remove : Staff / Delete Trainee
+        [Authorize(Roles = "Staff")]
+        public ActionResult DeleteTrainee(string Id)
+        {
+            var findTrainee = _context.Users.SingleOrDefault(t => t.Id == Id);
+            if (findTrainee == null)
+            {
+                return HttpNotFound();
+            }
+            _context.Users.Remove(findTrainee);
+            _context.SaveChanges();
+            return RedirectToAction("AllTrainee");
         }
     }
 }

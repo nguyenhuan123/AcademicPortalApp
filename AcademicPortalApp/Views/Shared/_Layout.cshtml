@@ -31,9 +31,12 @@
                     }
                     @if (Request.IsAuthenticated && User.IsInRole("Staff"))
                     {
-                        <li>@Html.ActionLink("All Trainer", "AllTrainer", "Staff")</li>
+
                         <li>@Html.ActionLink("All Course", "AllCourse", "Staff")</li>
                         <li>@Html.ActionLink("All Category", "AllCategory", "Staff")</li>
+                        <li>@Html.ActionLink("All Trainer", "AllTrainer", "Staff")</li>
+                        <li>@Html.ActionLink("All Trainee", "AllTrainee", "Staff")</li>
+
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
