@@ -1,0 +1,34 @@
+﻿@model IEnumerable<AcademicPortalApp.Models.TrainerViewModel>
+@{
+    ViewBag.Title = "AllTrainer";
+}
+
+<h2>AllTrainer</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">User Name</th>
+            <th scope="col">Trainer Name</th>
+            <th scope="col">Working Place</th>
+            <th scope="col">Trainer Type</th>
+            <th scope="col">Action </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var trainer in Model)
+        {
+            <tr>
+                <th>@trainer.UserName</th>
+                <th>@trainer.Trainer.TrainerName</th>
+                <td>@trainer.Trainer.WorkingPlace</td>
+                <td>@trainer.Trainer.Type.Name.ToString()</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditTrainer", new { Id = trainer.Id }, new { @class = "btn btn-success" })
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+   
+</table>
