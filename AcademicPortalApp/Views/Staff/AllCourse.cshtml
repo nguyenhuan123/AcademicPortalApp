@@ -1,0 +1,37 @@
+﻿@model IEnumerable<AcademicPortalApp.Models.CourseAndCategoryViewModel>
+@{
+    ViewBag.Title = "AllCourse";
+}
+
+<h2>AllCourse</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Course Id</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">Course Description</th>
+            <th scope="col">Category Name</th>
+            <th scope="col">Action </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>@item.Course.Id</th>
+                <th>@item.Course.Name</th>
+                <td>@item.Course.Description</td>
+                <td>@item.Course.Category.Name</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditCourse", new { Id = item.Course.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "DeleteCourse", new { Id = item.Course.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+    @Html.ActionLink("Create", "CreateCourse", null, new { @class = "btn btn-primary" })
+</table>
+
+
+
+

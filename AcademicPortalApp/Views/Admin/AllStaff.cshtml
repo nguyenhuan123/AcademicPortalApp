@@ -1,0 +1,34 @@
+﻿@model IEnumerable<AcademicPortalApp.Models.StaffViewModel>
+@{
+    ViewBag.Title = "AllStaff";
+}
+
+<h2>AllStaff</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Staff Name</th>
+            <th scope="col">Staff Email</th>
+            <th scope="col">Action </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var staff in Model)
+        {
+            <tr>
+                <th>@staff.Id</th>
+                <th>@staff.StaffName</th>
+                <td>@staff.Email</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditStaff", new { Id = staff.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "DeleteStaff", new { Id = staff.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </tbody>
+    @Html.ActionLink("Create", "CreateNewStaff", null, new { @class = "btn btn-primary" })
+</table>
+

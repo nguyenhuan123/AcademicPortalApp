@@ -1,0 +1,35 @@
+﻿@model IEnumerable<AcademicPortalApp.Models.Categories>
+@{
+    ViewBag.Title = "AllCategory";
+}
+
+<h2>AllCategory</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Category Id</th>
+            <th scope="col">Category Name</th>
+            <th scope="col">Category Description</th>
+            <th scope="col">Action </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <th>@item.Id</th>
+            <th>@item.Name</th>
+            <td>@item.Description</td>
+            <td>
+                @Html.ActionLink("Edit", "EditCategory", new { Id = item.Id }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Delete", "DeleteCategory", new { Id = item.Id }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+        }
+    </tbody>
+    @Html.ActionLink("Create", "CreateCategory", null, new { @class = "btn btn-primary" })
+</table>
+
+
+
+
