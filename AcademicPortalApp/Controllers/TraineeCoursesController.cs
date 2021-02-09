@@ -19,9 +19,7 @@ namespace AcademicPortalApp.Controllers
         }
 
 
-        // GET: TraineeCourses
-
-        // GET: TrainerCourses
+        // GET: TraineeCourse
         [HttpGet]
         [Authorize(Roles = "Staff")]
         public ActionResult AllCourseRelatedTrainee(string traineeId)
@@ -31,5 +29,38 @@ namespace AcademicPortalApp.Controllers
             return View(allCoursesRelatedTrainee);
         }
 
+
+        //GET: Staff/Assign Course to trainee: return :select trainee and course view model to view 
+        [HttpGet]
+        [Authorize(Roles = "Staff")]
+        public ActionResult AssignCoursesTrainees()
+        {
+            var viewModel = new ViewModelCoursesTrainee()
+            {
+                Trainees = _context.Users.OfType<Trainee>().ToList(),
+                Courses = _context.Courses.ToList()
+            };
+
+            return View(viewModel);
+        }
+        //POST: Staff/ receive traineeid and courseid from viewmodel to create new trainee course and redirect to all trainer course page 
+        [HttpPost]
+        [Authorize(Roles = "Staff")]
+        public ActionResult AssignCoursesTrainees(ViewModelCoursesTrainee model)
+        {
+            var traineeCourse = new TraineeCourses()
+            {
+                TraineeId = model.TraineeId,
+                CourseId = model.CourseId
+            };
+
+            _context.TraineeCourses.Add(traineeCourse);
+            _context.SaveChanges();
+
+            return RedirectToAction("AllCourseRelatedTrainee", "TraineeCourses", new { traineeId = model.TraineeId });
+
+
+
+        }
     }
 }
