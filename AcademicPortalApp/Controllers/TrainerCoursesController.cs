@@ -8,18 +8,18 @@ using AcademicPortalApp.Models;
 
 namespace AcademicPortalApp.Controllers
 {
-    public class TrainerCouresController : Controller
+    public class TrainerCoursesController : Controller
     {
         // GET: TrainerCoures
         private ApplicationDbContext _context;
 
-        public TrainerCouresController()
+        public TrainerCoursesController()
         {
             _context = new ApplicationDbContext();
         }
 
 
-        // GET: TrainerRelated
+        // GET: TrainerCourses
         [HttpGet]
         [Authorize(Roles = "Staff")]
         public ActionResult AllCourseRelatedTrainer(string trainerId)
@@ -36,17 +36,19 @@ namespace AcademicPortalApp.Controllers
 
 
 
+
+
+
+
+
+
+
+
+
+
+
         // find trainer course by id and assign trainerid for redirect to all trainer course then remove trainer course had been found
-        [HttpGet]
-        [Authorize(Roles = "Staff")]
-        public ActionResult RemoveTrainerFromCourse(int Id)
-        {
-            var findTrainerCourse = _context.TrainerCourses.SingleOrDefault(t => t.Id == Id);
-            var trainerId = findTrainerCourse.TrainerId;
-            _context.TrainerCourses.Remove(findTrainerCourse);
-            _context.SaveChanges();
-            return RedirectToAction("AllCourseOfTrainer", "TrainerRelated", new { trainerId = trainerId });
-        }
+     
 
 
     }
