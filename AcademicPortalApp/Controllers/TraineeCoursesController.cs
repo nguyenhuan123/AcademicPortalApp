@@ -58,9 +58,19 @@ namespace AcademicPortalApp.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("AllCourseRelatedTrainee", "TraineeCourses", new { traineeId = model.TraineeId });
+        }
 
 
-
+        //Remove :Staff remove trainee
+        [HttpGet]
+        [Authorize(Roles = "Staff")]
+        public ActionResult RemoveTraineeCourse(int Id)
+        {
+            var findTraineeCourse = _context.TraineeCourses.SingleOrDefault(t => t.Id == Id);
+            var traineeId = findTraineeCourse.TraineeId;
+            _context.TraineeCourses.Remove(findTraineeCourse);
+            _context.SaveChanges();
+            return RedirectToAction("AllCourseRelatedTrainee", "TraineeCourses", new { traineeId = traineeId });
         }
     }
 }

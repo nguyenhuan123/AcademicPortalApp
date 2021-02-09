@@ -93,7 +93,7 @@ namespace AcademicPortalApp.Controllers
 
 
 
-     
+     //Remove : Staff remove trainer
 
         [HttpGet]
         [Authorize(Roles = "Staff")]
