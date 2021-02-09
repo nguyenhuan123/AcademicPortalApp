@@ -97,7 +97,7 @@ namespace AcademicPortalApp.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Staff")]
-        public ActionResult RemoveTrainerFromCourse(int Id)
+        public ActionResult RemoveTrainerCourse(int Id)
         {
             var findTrainerCourse = _context.TrainerCourses.SingleOrDefault(t => t.Id == Id);
             var trainerId = findTrainerCourse.TrainerId;
@@ -121,7 +121,7 @@ namespace AcademicPortalApp.Controllers
 
 
 
-        // find trainer course by id and assign trainerid for redirect to all trainer course then remove trainer course had been found
+        
 
 
 
