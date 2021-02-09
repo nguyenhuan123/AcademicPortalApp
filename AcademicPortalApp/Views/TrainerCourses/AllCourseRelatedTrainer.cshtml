@@ -22,10 +22,9 @@
                 <td>@item.Course.Name</td>
                 <td>@item.Course.Description</td>
                 <td>
-                 
                 </td>
             </tr>
         }
     </tbody>
-   
+    @Html.ActionLink("Assign", "AssignCoursesTrainers", null, new { @class = "btn btn-primary" })
 </table>

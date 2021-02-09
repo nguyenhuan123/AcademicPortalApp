@@ -337,10 +337,10 @@
     <Content Include="Views\Staff\EditTrainee.cshtml" />
     <Content Include="Views\Staff\EditTrainer.cshtml" />
     <Content Include="Views\TrainerCourses\AllCourseRelatedTrainer.cshtml" />
+    <Content Include="Views\TrainerCourses\AssignCoursesTrainers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\TrainerCoures\" />
     <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
