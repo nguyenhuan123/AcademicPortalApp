@@ -60,7 +60,6 @@ namespace AcademicPortalApp.Controllers
             return RedirectToAction("AllCourseRelatedTrainee", "TraineeCourses", new { traineeId = model.TraineeId });
         }
 
-
         //Remove :Staff remove trainee
         [HttpGet]
         [Authorize(Roles = "Staff")]
@@ -72,5 +71,36 @@ namespace AcademicPortalApp.Controllers
             _context.SaveChanges();
             return RedirectToAction("AllCourseRelatedTrainee", "TraineeCourses", new { traineeId = traineeId });
         }
+
+
+        //GET: Staff/ find trainee course by id and trainee id and create a new view model of trainee course to return trainee course, list of course and trainee id
+        [HttpGet]
+        [Authorize(Roles = "Staff")]
+        public ActionResult ReassignedTraineeCourse(int Id)
+        {
+            var traineeCourse = _context.TraineeCourses.SingleOrDefault(t => t.Id == Id);
+            var traineeId = traineeCourse.TraineeId;
+            ViewModelCoursesTrainee model = new ViewModelCoursesTrainee
+            {
+                TraineeCourse = traineeCourse,
+                Courses = _context.Courses.ToList(),
+                TraineeId = traineeId
+            };
+
+            return View(model);
+        }
+        //POST: Staff/ find trainee course by trainee course by id and change courseid that receive from view model
+        [HttpPost]
+        [Authorize(Roles = "Staff")]
+        public ActionResult ReassignedTraineeCourse(ViewModelCoursesTrainee model)
+        {
+            var traineeCourse = _context.TraineeCourses.SingleOrDefault(t => t.Id == model.TraineeCourse.Id);
+            traineeCourse.CourseId = model.TraineeCourse.CourseId;
+            _context.SaveChanges();
+
+            return RedirectToAction("AllCourseRelatedTrainee", "TraineeCourses", new { traineeId = model.TraineeId });
+        }
+
+
     }
 }
