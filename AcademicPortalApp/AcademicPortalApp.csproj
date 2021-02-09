@@ -338,6 +338,7 @@
     <Content Include="Views\Staff\EditTrainer.cshtml" />
     <Content Include="Views\TrainerCourses\AllCourseRelatedTrainer.cshtml" />
     <Content Include="Views\TrainerCourses\AssignCoursesTrainers.cshtml" />
+    <Content Include="Views\TrainerCourses\ReassignedTrainerCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

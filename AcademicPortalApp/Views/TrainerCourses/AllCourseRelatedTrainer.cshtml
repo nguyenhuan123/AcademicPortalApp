@@ -22,6 +22,7 @@
                 <td>@item.Course.Name</td>
                 <td>@item.Course.Description</td>
                 <td>
+                    @Html.ActionLink("Reassign", "ReassignedTrainerCourse", new { Id = item.Id }, new { @class = "btn btn-success" })
                 </td>
             </tr>
         }
