@@ -385,5 +385,7 @@ namespace AcademicPortalApp.Controllers
             _context.SaveChanges();
             return RedirectToAction("AllTrainee");
         }
+
+        //Get all
     }
 }

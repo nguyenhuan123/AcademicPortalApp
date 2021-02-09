@@ -66,4 +66,13 @@ namespace AcademicPortalApp.Models
         public IEnumerable<ProgrammingLanguages> ProgrammingLanguages { get; set; }
         public string Id { get; set; }
     }
+    public class ViewModelCoursesTrainer
+    {
+        public string TrainerId { get; set; }
+        public IEnumerable<Trainer> Trainers { get; set; }
+        public int CourseId { get; set; }
+        public IEnumerable<Courses> Courses { get; set; }
+        public TrainerCourses TrainerCourse { get; set; }
+    }
+
 }
