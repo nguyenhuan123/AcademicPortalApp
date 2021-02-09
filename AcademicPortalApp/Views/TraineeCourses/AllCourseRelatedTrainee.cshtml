@@ -1,0 +1,31 @@
+﻿@model IEnumerable<AcademicPortalApp.Models.TraineeCourses>
+@{
+    ViewBag.Title = "AllCourseRelatedTrainee";
+}
+
+<h2>AllCourseRelatedTrainee</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Trainee Id</th>
+            <th scope="col">Course Name</th>
+            <th scope="col">Course Decription</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td scope="row">@item.Trainee.UserName</td>
+                <td>@item.Course.Name</td>
+                <td>@item.Course.Description</td>
+                <td>
+                    
+                </td>
+            </tr>
+        }
+    </tbody>
+  
+</table>
+

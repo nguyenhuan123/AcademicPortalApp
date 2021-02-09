@@ -35,6 +35,7 @@
                 <td>@trainee.ProgrammingLanguage.Name</td>
                 <td>
                     @Html.ActionLink("Edit", "EditTrainee", new { Id = trainee.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink(" Related Courses", "AllCourseRelatedTrainee", "TraineeCourses", new { traineeId = trainee.Id }, new { @class = "btn btn-primary" })
                     @Html.ActionLink("Delete", "DeleteTrainee", new { Id = trainee.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>

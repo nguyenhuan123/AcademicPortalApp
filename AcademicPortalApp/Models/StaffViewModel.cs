@@ -75,4 +75,13 @@ namespace AcademicPortalApp.Models
         public TrainerCourses TrainerCourse { get; set; }
     }
 
+    public class ViewModelCoursesTrainee
+    {
+        public string TraineeId { get; set; }
+        public IEnumerable<Trainee> Trainees { get; set; }
+        public int CourseId { get; set; }
+        public IEnumerable<Courses> Courses { get; set; }
+        public TraineeCourses TraineeCourse { get; set; }
+    }
+
 }
