@@ -66,23 +66,10 @@ namespace AcademicPortalApp.Controllers
                 _userManager = value;
             }
         }
-        // get all course
-        public ActionResult AllCourse()
-        {
-            var allCourse = _context.Courses.ToList();
 
-            List<CourseAndCategoryViewModel> courseWithCate = new List<CourseAndCategoryViewModel>();
 
-            foreach(var course in allCourse)
-            {
-                courseWithCate.Add(new CourseAndCategoryViewModel()
-                {
-                    Course = course,
-                    Categories = _context.Categories.ToList()
-                });
-            }
-            return View(courseWithCate);
-        }
+
+       
         //GET: /Staff/Create Course
         [Authorize(Roles ="Staff")]
         public ActionResult CreateCourse()
@@ -151,12 +138,15 @@ namespace AcademicPortalApp.Controllers
             _context.SaveChanges();
             return RedirectToAction("AllCourse");
         }
-        // get all category
+        // get all category and search by category name
         [Authorize(Roles = "Staff")]
-        public ActionResult AllCategory()
+        public ActionResult AllCategory(string cateName)
         {
-            var allCategory = _context.Categories.ToList();
-            return View(allCategory);
+            if (String.IsNullOrWhiteSpace(cateName))
+            {
+                return View(_context.Categories.ToList());
+            }
+            return View(_context.Categories.Where(t => t.Name.Contains(cateName)).ToList());
         }
         // GET: /Staff/Create Category
         [Authorize(Roles ="Staff")]
@@ -260,33 +250,63 @@ namespace AcademicPortalApp.Controllers
             _context.SaveChanges();
             return RedirectToAction("AllTrainer");
         }
-        // Get all trainee
-        [Authorize (Roles ="Staff")]
-        public ActionResult AllTrainee()
+        //get all trainee and search trainee infomation
+        [Authorize(Roles = "Staff")]
+        public ActionResult AllTrainee(string traineeName)
         {
             var allTrainee = _context.Users.OfType<Trainee>().Include(t => t.ProgrammingLanguage).ToList();
 
             List<TraineeInStaffViewModel> traineeInfo = new List<TraineeInStaffViewModel>();
 
-            foreach (var trainee in allTrainee)
+            if (String.IsNullOrWhiteSpace(traineeName))
             {
 
-                traineeInfo.Add(new TraineeInStaffViewModel()
+                foreach (var trainee in allTrainee)
                 {
-                    TraineeName = trainee.TraineeName,
-                    Email = trainee.UserName,
-                    Id = trainee.Id,
-                    Age = trainee.Age,
-                    ProgrammingLanguage = trainee.ProgrammingLanguage,
-                    ProgrammingLanguageId = trainee.ProgrammingLanguageId,
-                    TOEICScore = trainee.TOEICScore,
-                    ExperienceDetails = trainee.ExperienceDetails,
-                    DateOfBirth = trainee.DateOfBirth,
-                    Department = trainee.Department,
-                    Location = trainee.Location
-                });
+
+                    traineeInfo.Add(new TraineeInStaffViewModel()
+                    {
+                        TraineeName = trainee.TraineeName,
+                        Email = trainee.UserName,
+                        Id = trainee.Id,
+                        Age = trainee.Age,
+                        ProgrammingLanguage = trainee.ProgrammingLanguage,
+                        ProgrammingLanguageId = trainee.ProgrammingLanguageId,
+                        TOEICScore = trainee.TOEICScore,
+                        ExperienceDetails = trainee.ExperienceDetails,
+                        DateOfBirth = trainee.DateOfBirth,
+                        Department = trainee.Department,
+                        Location = trainee.Location
+                    });
+                }
+                return View(traineeInfo);
             }
-            return View(traineeInfo);
+            else
+            {
+                allTrainee = _context.Users.OfType<Trainee>()
+                    .Where(trainee => trainee.TraineeName == traineeName)
+                    .Include(t => t.ProgrammingLanguage).ToList();
+
+                foreach (var trainee in allTrainee)
+                {
+                    traineeInfo.Add(new TraineeInStaffViewModel()
+                    {
+                        TraineeName = trainee.TraineeName,
+                        Email = trainee.UserName,
+                        Id = trainee.Id,
+                        Age = trainee.Age,
+                        ProgrammingLanguage = trainee.ProgrammingLanguage,
+                        ProgrammingLanguageId = trainee.ProgrammingLanguageId,
+                        TOEICScore = trainee.TOEICScore,
+                        ExperienceDetails = trainee.ExperienceDetails,
+                        DateOfBirth = trainee.DateOfBirth,
+                        Department = trainee.Department,
+                        Location = trainee.Location
+                    });
+                }
+                return View(traineeInfo);
+            }
+
         }
         //Get Staff /Create : Trainee
         [HttpGet]
@@ -386,6 +406,16 @@ namespace AcademicPortalApp.Controllers
             return RedirectToAction("AllTrainee");
         }
 
-        //Get all
+        // get all course and search course by name
+        public ActionResult AllCourse(string name)
+        {
+            if (String.IsNullOrWhiteSpace(name))
+            {
+                return View(_context.Courses.Include(t => t.Category).ToList());
+            }
+            return View(_context.Courses.Where(t => t.Name.Contains(name)).Include(t => t.Category).ToList());
+        }
+
+
     }
 }

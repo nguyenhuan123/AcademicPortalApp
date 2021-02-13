@@ -4,6 +4,15 @@
 }
 
 <h2>AllCategory</h2>
+@using (Html.BeginForm("AllCategory", "Staff"))
+{
+    <div class="form-group">
+        @Html.Label("Search task by Name")
+        @Html.TextBox("cateName", null, new { @class = "form-control" })
+        <button type="submit" class="btn btn-primary">Search Category By Name</button>
+    </div>
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -16,15 +25,15 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <th>@item.Id</th>
-            <th>@item.Name</th>
-            <td>@item.Description</td>
-            <td>
-                @Html.ActionLink("Edit", "EditCategory", new { Id = item.Id }, new { @class = "btn btn-success" })
-                @Html.ActionLink("Delete", "DeleteCategory", new { Id = item.Id }, new { @class = "btn btn-danger" })
-            </td>
-        </tr>
+            <tr>
+                <th>@item.Id</th>
+                <th>@item.Name</th>
+                <td>@item.Description</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditCategory", new { Id = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "DeleteCategory", new { Id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
         }
     </tbody>
     @Html.ActionLink("Create", "CreateCategory", null, new { @class = "btn btn-primary" })

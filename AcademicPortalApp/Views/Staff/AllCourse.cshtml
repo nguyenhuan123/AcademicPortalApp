@@ -1,9 +1,19 @@
-﻿@model IEnumerable<AcademicPortalApp.Models.CourseAndCategoryViewModel>
+﻿@model IEnumerable<AcademicPortalApp.Models.Courses>
 @{
     ViewBag.Title = "AllCourse";
 }
 
 <h2>AllCourse</h2>
+@using (Html.BeginForm("AllCourse", "Staff"))
+{
+    <div class="form-group">
+        @Html.Label("Search task by Name")
+        @Html.TextBox("name", null, new { @class = "form-control" })
+        <button type="submit" class="btn btn-primary">Search by Name</button>
+    </div>
+}
+
+
 <table class="table">
     <thead>
         <tr>
@@ -18,13 +28,13 @@
         @foreach (var item in Model)
         {
             <tr>
-                <th>@item.Course.Id</th>
-                <th>@item.Course.Name</th>
-                <td>@item.Course.Description</td>
-                <td>@item.Course.Category.Name</td>
+                <th>@item.Id</th>
+                <th>@item.Name</th>
+                <td>@item.Description</td>
+                <td>@item.Category.Name</td>
                 <td>
-                    @Html.ActionLink("Edit", "EditCourse", new { Id = item.Course.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Delete", "DeleteCourse", new { Id = item.Course.Id }, new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Edit", "EditCourse", new { Id = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Delete", "DeleteCourse", new { Id = item.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }

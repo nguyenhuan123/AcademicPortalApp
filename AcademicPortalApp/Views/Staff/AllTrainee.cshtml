@@ -4,7 +4,14 @@
 }
 
 <h2>AllTrainee</h2>
-
+@using (Html.BeginForm("AllTrainee", "Staff"))
+{
+    <div class="form-group">
+        @Html.Label("Search task by Name")
+        @Html.TextBox("traineeName", null, new { @class = "form-control" })
+        <button type="submit" class="btn btn-primary">Search Trainee By Name</button>
+    </div>
+}
 <table class="table">
     <thead>
         <tr>
