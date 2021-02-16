@@ -1,0 +1,56 @@
+﻿@model IEnumerable<AcademicPortalApp.Models.TrainerTranineeViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@if (User.IsInRole("Trainee"))
+{
+    <h2>All Course Of Trainee</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Trainee Name</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Course Decription</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">@item.TraineeCourse.Trainee.TraineeName</td>
+                    <td>@item.TraineeCourse.Course.Name</td>
+                    <td>@item.TraineeCourse.Course.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@if (User.IsInRole("Trainer"))
+{
+    <h2>All Course Of Trainer</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Trainer Name</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Course Decription</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td scope="row">@item.TrainerCourse.Trainer.TrainerName</td>
+                    <td>@item.TrainerCourse.Course.Name</td>
+                    <td>@item.TrainerCourse.Course.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
