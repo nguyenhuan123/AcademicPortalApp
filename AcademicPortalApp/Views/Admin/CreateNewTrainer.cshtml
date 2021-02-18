@@ -14,40 +14,46 @@
     <h4>Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.WorkingPlace, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.WorkingPlace, new { @class = "form-control" })
-        </div>
+    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.WorkingPlace, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.WorkingPlace, new { @class = "form-control" })
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.TrainerName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.TrainerName, new { @class = "form-control" })
-        </div>
+    @Html.ValidationMessageFor(model => model.WorkingPlace, "", new { @class = "text-danger" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.TrainerName, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.TrainerName, new { @class = "form-control" })
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.TypeId, new { @class = "col-md-2 control-label" })
-        @Html.DropDownListFor(m => m.TypeId, new SelectList(Model.Types, "Id", "Name"), new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.TrainerName, "", new { @class = "text-danger" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.TypeId, new { @class = "col-md-2 control-label" })
+    @Html.DropDownListFor(m => m.TypeId, new SelectList(Model.Types, "Id", "Name"), new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
+    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
+    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+</div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Create New Trainer" />
