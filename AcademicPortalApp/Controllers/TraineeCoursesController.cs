@@ -48,16 +48,30 @@ namespace AcademicPortalApp.Controllers
         [Authorize(Roles = "Staff")]
         public ActionResult AssignCoursesTrainees(ViewModelCoursesTrainee model)
         {
-            var traineeCourse = new TraineeCourses()
+            var checkIfExist = _context.TraineeCourses.SingleOrDefault(t => t.TraineeId == model.TraineeId && t.CourseId == model.CourseId);
+            if(checkIfExist != null)
             {
-                TraineeId = model.TraineeId,
-                CourseId = model.CourseId
-            };
+                var viewModel = new ViewModelCoursesTrainee()
+                {
+                    Trainees = _context.Users.OfType<Trainee>().ToList(),
+                    Courses = _context.Courses.ToList()
+                };
+                ViewBag.message = "This courses had been assigned to this trainee"; 
+                return View(viewModel);
+            }
+            else
+            {
+                var traineeCourse = new TraineeCourses()
+                {
+                    TraineeId = model.TraineeId,
+                    CourseId = model.CourseId
+                };
 
-            _context.TraineeCourses.Add(traineeCourse);
-            _context.SaveChanges();
+                _context.TraineeCourses.Add(traineeCourse);
+                _context.SaveChanges();
 
-            return RedirectToAction("AllCourseRelatedTrainee", "TraineeCourses", new { traineeId = model.TraineeId });
+                return RedirectToAction("AllCourseRelatedTrainee", "TraineeCourses", new { traineeId = model.TraineeId });
+            }
         }
 
         //Remove :Staff remove trainee

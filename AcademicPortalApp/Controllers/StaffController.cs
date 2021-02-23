@@ -87,11 +87,27 @@ namespace AcademicPortalApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateCourse(CourseAndCategoryViewModel model)
         {
-            _context.Courses.Add(model.Course);
-            _context.SaveChanges();
+            var checkIfExist = _context.Courses.SingleOrDefault(t => t.Name == model.Course.Name);
+           if(checkIfExist != null)
+            {
+                var selectedcategorylist = new CourseAndCategoryViewModel()
+                {
+                    Categories = _context.Categories.ToList()
+                };
+                ViewBag.message = "This categories had been created ";
+                return View(selectedcategorylist);
 
-            return RedirectToAction("AllCourse");
+            }
+            else
+            {
+                _context.Courses.Add(model.Course);
+                _context.SaveChanges();
+
+                return RedirectToAction("AllCourse");
+            }
+           
         }
+
         //GET: /Staff/Edit Course
         [HttpGet]
         [Authorize(Roles = "Staff")]
@@ -148,21 +164,37 @@ namespace AcademicPortalApp.Controllers
             }
             return View(_context.Categories.Where(t => t.Name.Contains(cateName)).ToList());
         }
+
+
         // GET: /Staff/Create Category
         [Authorize(Roles ="Staff")]
         public ActionResult CreateCategory()
         { 
             return View();
         }
+
+
         //POST: /Staff/Create Category
         [HttpPost]
         [Authorize(Roles = "Staff")]
         public ActionResult CreateCategory(Categories c)
         {
-            _context.Categories.Add(c);
-            _context.SaveChanges();
-            return RedirectToAction("AllCategory");
+            var checkIfExist = _context.Categories.SingleOrDefault(t => t.Name == c.Name);
+            if (checkIfExist != null)
+            {
+                ViewBag.message = "This categories had been created ";
+                return View();
+            }
+            else
+            {
+                _context.Categories.Add(c);
+                _context.SaveChanges();
+                return RedirectToAction("AllCategory");
+            }
+         
         }
+
+
         //GET: /Staff/Edit Category
         [Authorize(Roles ="Staff")]
         public ActionResult EditCategory(int Id)
@@ -170,6 +202,8 @@ namespace AcademicPortalApp.Controllers
             var cate = _context.Categories.SingleOrDefault(t => t.Id == Id);
             return View(cate);
         }
+
+
         //POST: /Staff/Edit Category
         [HttpPost]
         [Authorize(Roles ="Staff")]
@@ -181,6 +215,8 @@ namespace AcademicPortalApp.Controllers
             _context.SaveChanges();
             return RedirectToAction("AllCategory");
         }
+
+
         // Staff/Delete Category
         [Authorize(Roles ="Staff")]
         public ActionResult DeleteCategory(int Id)

@@ -4,6 +4,10 @@
 }
 
 <h2>AssignCoursesTrainers</h2>
+@if (ViewBag.message != null)
+{
+    <p class="text text-danger">@ViewBag.message</p>
+}
 
 @using (Html.BeginForm("AssignCoursesTrainers", "TrainerCourses", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {

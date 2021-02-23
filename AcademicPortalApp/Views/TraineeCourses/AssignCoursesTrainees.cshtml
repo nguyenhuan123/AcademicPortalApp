@@ -5,6 +5,10 @@
 
 <h2>AssignCoursesTrainees</h2>
 
+@if (ViewBag.message != null) { 
+<p class="text text-danger">@ViewBag.message</p>
+}
+
 @using (Html.BeginForm("AssignCoursesTrainees", "TraineeCourses", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()

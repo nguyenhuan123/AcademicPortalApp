@@ -35,6 +35,8 @@ namespace AcademicPortalApp.Controllers
         [Authorize(Roles = "Staff")]
         public ActionResult AssignCoursesTrainers()
         {
+
+
             var viewModel = new ViewModelCoursesTrainer()
             {
                 Trainers = _context.Users.OfType<Trainer>().ToList(),
@@ -48,16 +50,31 @@ namespace AcademicPortalApp.Controllers
         [Authorize(Roles = "Staff")]
         public ActionResult AssignCoursesTrainers(ViewModelCoursesTrainer model)
         {
-            var trainerCourse = new TrainerCourses()
+          
+
+            var checkIfExist = _context.TrainerCourses.SingleOrDefault(t => t.CourseId == model.CourseId && t.TrainerId == model.TrainerId);
+            if (checkIfExist != null)
             {
-                TrainerId = model.TrainerId,
-                CourseId = model.CourseId
-            };
+                var viewModel = new ViewModelCoursesTrainer()
+                {
+                    Trainers = _context.Users.OfType<Trainer>().ToList(),
+                    Courses = _context.Courses.ToList()
+                };
+                ViewBag.message = "This courses had been assigned to this trainer";
+                return View(viewModel);
+            }
+            else
+            {
+                var trainerCourse = new TrainerCourses()
+                {
+                    TrainerId = model.TrainerId,
+                    CourseId = model.CourseId
+                };
+                _context.TrainerCourses.Add(trainerCourse);
+                _context.SaveChanges();
 
-            _context.TrainerCourses.Add(trainerCourse);
-            _context.SaveChanges();
-
-            return RedirectToAction("AllCourseRelatedTrainer", "TrainerCourses", new { trainerId = model.TrainerId });
+                return RedirectToAction("AllCourseRelatedTrainer", "TrainerCourses", new { trainerId = model.TrainerId });
+            }
         }
 
 
