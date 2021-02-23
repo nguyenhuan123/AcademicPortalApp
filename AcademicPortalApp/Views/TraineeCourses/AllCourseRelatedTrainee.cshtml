@@ -21,7 +21,7 @@
                 <td>@item.Course.Name</td>
                 <td>@item.Course.Description</td>
                 <td>
-                    @Html.ActionLink("Reassign", "ReassignedTraineeCourse", new { Id = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Reassign", "ReassignedTraineeCourse", new { Id = item.Id }, new { @class = "btn btn-info" })
                     @Html.ActionLink("Remove", "RemoveTraineeCourse", new { Id = item.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>

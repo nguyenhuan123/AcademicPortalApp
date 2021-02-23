@@ -25,11 +25,11 @@
             <td>@trainer.Trainer.WorkingPlace</td>
             <td>@trainer.Trainer.Type.Name.ToString()</td>
             <td>
-                @Html.ActionLink("Edit", "EditTrainer", new {Id = trainer.Id }, new { @class = "btn btn-success" })
+                @Html.ActionLink("Edit", "EditTrainer", new {Id = trainer.Id }, new { @class = "btn btn-info" })
                 @Html.ActionLink("Delete", "DeleteTrainer", new { Id = trainer.Id}, new { @class = "btn btn-danger" })
             </td>
         </tr>
         }
     </tbody>
-       @Html.ActionLink("Create", "CreateNewTrainer", null, new { @class = "btn btn-primary" })
+       @Html.ActionLink("Create", "CreateNewTrainer", null, new { @class = "btn btn-success" })
 </table>

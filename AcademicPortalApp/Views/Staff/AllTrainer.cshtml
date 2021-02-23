@@ -24,8 +24,8 @@
                 <td>@trainer.Trainer.WorkingPlace</td>
                 <td>@trainer.Trainer.Type.Name.ToString()</td>
                 <td>
-                    @Html.ActionLink("Edit", "EditTrainer", new { Id = trainer.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("All Trainer Related Courses", "AllCourseRelatedTrainer", "TrainerCourses", new { trainerId = trainer.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Edit", "EditTrainer", new { Id = trainer.Id }, new { @class = "btn btn-info" })
+                  @Html.ActionLink("All Trainer Related Courses", "AllCourseRelatedTrainer", "TrainerCourses", new { trainerId = trainer.Id }, new { @class = "btn btn-secondary" }) 
                 </td>
             </tr>
         }

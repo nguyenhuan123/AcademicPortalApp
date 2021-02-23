@@ -41,12 +41,12 @@
                 <td>@trainee.Location</td>
                 <td>@trainee.ProgrammingLanguage.Name</td>
                 <td>
-                    @Html.ActionLink("Edit", "EditTrainee", new { Id = trainee.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink(" Related Courses", "AllCourseRelatedTrainee", "TraineeCourses", new { traineeId = trainee.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Edit", "EditTrainee", new { Id = trainee.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink(" Related Courses", "AllCourseRelatedTrainee", "TraineeCourses", new { traineeId = trainee.Id }, new { @class = "btn btn-secondary" })
                     @Html.ActionLink("Delete", "DeleteTrainee", new { Id = trainee.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }
     </tbody>
-    @Html.ActionLink("Create", "CreateTrainee", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create", "CreateTrainee", null, new { @class = "btn btn-success" })
 </table>

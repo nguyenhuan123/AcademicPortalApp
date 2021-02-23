@@ -401,6 +401,7 @@ namespace AcademicPortalApp.Controllers
             {
                 return HttpNotFound();
             }
+            _context.TraineeCourses.RemoveRange(_context.TraineeCourses.Where(t => t.TraineeId == Id));
             _context.Users.Remove(findTrainee);
             _context.SaveChanges();
             return RedirectToAction("AllTrainee");

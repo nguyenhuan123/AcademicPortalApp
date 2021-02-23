@@ -33,13 +33,13 @@
                 <td>@item.Description</td>
                 <td>@item.Category.Name</td>
                 <td>
-                    @Html.ActionLink("Edit", "EditCourse", new { Id = item.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Edit", "EditCourse", new { Id = item.Id }, new { @class = "btn btn-info" })
                     @Html.ActionLink("Delete", "DeleteCourse", new { Id = item.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }
     </tbody>
-    @Html.ActionLink("Create", "CreateCourse", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create", "CreateCourse", null, new { @class = "btn btn-success" })
 </table>
 
 

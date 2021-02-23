@@ -23,12 +23,12 @@
                 <th>@staff.StaffName</th>
                 <td>@staff.Email</td>
                 <td>
-                    @Html.ActionLink("Edit", "EditStaff", new { Id = staff.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Edit", "EditStaff", new { Id = staff.Id }, new { @class = "btn btn-info" })
                     @Html.ActionLink("Delete", "DeleteStaff", new { Id = staff.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }
     </tbody>
-    @Html.ActionLink("Create", "CreateNewStaff", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Create", "CreateNewStaff", null, new { @class = "btn btn-success" })
 </table>
 
